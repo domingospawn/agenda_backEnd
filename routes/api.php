@@ -13,9 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
+header('Access-Control-Allow-Origin: http://agenda.fe');
+header('Access-Control-Allow-Credentials: true');
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-
-Route::get('/contacts', 'ContactsController@index')->middleware('cors');
+Route::group(['middleware' => 'web'], function(){
+  Route::get('/contacts',       'ContactsController@index');
+  Route::get('/get_token_csrf', 'ContactsController@token');
+  Route::post('/data',          'ContactsController@saveText');
+  Route::get('/getdata',        'ContactsController@getText');
+});
