@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
 use App\Contact;
+use Illuminate\Support\Facades\Log;
 
 class ContactsController extends Controller
 {
@@ -25,8 +24,12 @@ class ContactsController extends Controller
 
     public function saveText(Request $request)
     {
+      Log::info('Contacts controller');
       $text = $request->input('text');
       $this->text = $text;
+
+      Log::info('save text -> '.$text);
+
       return 'sended: '.$text;
     }
 

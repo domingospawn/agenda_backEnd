@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,16 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-header('Access-Control-Allow-Origin: http://agenda.fe');
-header('Access-Control-Allow-Credentials: true');
+Log::info('Routes api');
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::group(['middleware' => 'web'], function(){
+Route::group(['middleware' => 'cors'], function(){
+  Log::info('routes middleware cors group');
+
   Route::get('/contacts',       'ContactsController@index');
   Route::get('/get_token_csrf', 'ContactsController@token');
-  Route::post('/data',          'ContactsController@saveText');
+  Route::post('/data',          'ContactsController@saveText')->middleware('cors');
   Route::get('/getdata',        'ContactsController@getText');
 });
