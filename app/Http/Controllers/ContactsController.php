@@ -25,6 +25,9 @@ class ContactsController extends Controller
     public function saveText(Request $request)
     {
       Log::info('Contacts controller');
+      Log::info('Request from controller======================================');
+      Log::info( $request->all() );
+      Log::info('=============================================================');
       $text = $request->input('text');
       $this->text = $text;
 

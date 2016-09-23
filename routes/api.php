@@ -22,6 +22,7 @@ Route::get('/user', function (Request $request) {
 Route::group(['middleware' => 'cors'], function(){
   Log::info('routes middleware cors group');
 
+  //Route::match(['options'], '/data', 'ContactsController@saveText')->middleware('cors');
   Route::get('/contacts',       'ContactsController@index');
   Route::get('/get_token_csrf', 'ContactsController@token');
   Route::post('/data',          'ContactsController@saveText')->middleware('cors');

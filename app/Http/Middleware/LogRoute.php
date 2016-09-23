@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Response;
 
 class LogRoute
 {
@@ -18,11 +19,19 @@ class LogRoute
     {
         Log::info('Log of routes');
         Log::info('');
-        Log::info('Request: '.$request);
-        //log::info($request);
-        Log::info('');
-        Log::info('');
+        Log::info('method: '.$request->method());
+        //Log::info('text: '.$request->text);
+        //Log::info('Request: '.$request);
+        $rep = $next($request);
 
-        return $next($request);
+        if ($request->isMethod('OPTIONS')) {
+          Log::info('metodo OPTIONS retorna 200');
+          return redirect('home');
+          //return response(200);
+        }
+
+        Log::info('Rota executada');
+
+        return $rep;
     }
 }
