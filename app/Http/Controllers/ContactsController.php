@@ -17,6 +17,11 @@ class ContactsController extends Controller
       return $contacts;
     }
 
+    public function newContact(Request $request)
+    {
+      
+    }
+
     public function token()
     {
       return csrf_token();
